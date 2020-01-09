@@ -16,6 +16,6 @@ export class CustomPipe implements PipeTransform {
                 obj[key] = obj[key] || {}, 
                 obj); 
             lastObj[lastKey] = val;
-            };
+        };
    }
 }

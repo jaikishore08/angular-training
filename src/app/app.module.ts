@@ -10,6 +10,7 @@ import { CustomPipe } from './custom.pipe';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { AdminModule } from './admin/admin.module';
+import { HttpClientModule } from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AdminModule } from './admin/admin.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
