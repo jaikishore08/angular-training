@@ -12,32 +12,46 @@ import { map, merge, take, takeLast, timestamp } from 'rxjs/operators'
 export class AppComponent implements OnInit{
   items: any[] = [];
   subject = new Subject();
+  behaviourSubject = new BehaviorSubject("first item");
+  replaySubject = new ReplaySubject(3);
+  formUser:any = {};
 
 
   constructor(private appService: AppService) {}
 
+  log(tmplt){
+    console.log(tmplt);
+  }
+
+  // div.form-group>label[]+input[type='text'].form-control
+
+  onSubmit(event) {
+    console.log(event);
+  }
+
   ngOnInit() {
-    this.appService.getMovieByName('movie').subscribe(data => {
-      this.showOnTemplate(data);
-    });
     const observable = new Observable(observer => {
       observer.next(1);
       observer.next(2);
       observer.next(3);
       observer.complete();
       observer.next(4);
-    }).pipe(timestamp()).subscribe(data => {
+    }).pipe(takeLast(2)).subscribe(data => {
       this.showOnTemplate(data);
-    }, error => {
-      console.log(error);
-    },() => {
-      this.showOnTemplate("completed");
     });
 
-    const obs = of(["a", "b", "c"]);
-    obs.subscribe(data => {
-      this.showOnTemplate(data);
-    });
+    // observable.subscribe(data => {
+    //   this.showOnTemplate(data);
+    // }, error => {
+    //   this.showOnTemplate("error");
+    // }, () => {
+    //   this.showOnTemplate("completed");
+    // });
+
+    // const obs = of(["a", "b", "c"]);
+    // obs.subscribe(data => {
+    //   this.showOnTemplate(data);
+    // });
 
 
     // const observable2 = new Observable(observer => {
@@ -47,12 +61,36 @@ export class AppComponent implements OnInit{
     // }).pipe(merge(observable)).subscribe(data => {
     //   this.showOnTemplate(data);
     // });
+    const subscription = this.subject.subscribe(data => {
+      this.showOnTemplate(data);
+    }, error =>{
+      this.showOnTemplate(error);
+    });
+    this.subject.next("event 1 from subject");
+    this.behaviourSubject.next("event 1 from behaviour subject");
+    this.behaviourSubject.next("event 2 from bsubject");
+    this.behaviourSubject.next("event 3 from bsubject");
+    const subscription2 = this.behaviourSubject.subscribe(data => {
+      this.showOnTemplate(data);
+    }, error =>{
+      this.showOnTemplate(error);
+    });
 
-    // const subscription = this.subject.subscribe(data => {
+    subscription.add(subscription2)
+
+    subscription.unsubscribe();
+
+    this.subject.next("subject 5");
+    this.behaviourSubject.next("bsubject 6");
+    // subscription.unsubscribe();
+
+    // this.replaySubject.next("event 1 from replay subject");
+    // this.replaySubject.next("event 2 from replay");
+    // this.replaySubject.next("event 3 from replay");
+    // this.replaySubject.subscribe(data => {
     //   this.showOnTemplate(data);
-    // }, error =>{
-    //   this.showOnTemplate(error);
     // });
+    
     // const subscription2 = this.subject.subscribe(data => {
     //   this.showOnTemplate("from subscriber 2 "+ data);
     // })

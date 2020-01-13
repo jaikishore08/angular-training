@@ -10,7 +10,9 @@ import { CustomPipe } from './custom.pipe';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { AdminModule } from './admin/admin.module';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
+import { TemplateDrivenFormDemoComponent } from './template-driven-form-demo/template-driven-form-demo.component'
+import { RouteGuard, RouteGuard2 } from './guards/routeguard';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { HttpClientModule } from '@angular/common/http'
     CustomDirective,
     CustomPipe,
     NotfoundComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    TemplateDrivenFormDemoComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,7 @@ import { HttpClientModule } from '@angular/common/http'
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [RouteGuard, RouteGuard2],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

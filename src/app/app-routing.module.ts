@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { RouteGuard, RouteGuard2 } from './guards/routeguard';
 
 
 const routes: Routes = [
@@ -12,13 +13,13 @@ const routes: Routes = [
     path: '', redirectTo: '/home', pathMatch: 'full'
   },
   {
-    path: 'login', component: LoginComponent 
+    path: 'login', component: LoginComponent
   },
   {
     path: 'home', component: HomeComponent 
   },
   {
-    path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
+    path: 'admin',canLoad : [], loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
   {
     path: 'employee' , children : 
     [

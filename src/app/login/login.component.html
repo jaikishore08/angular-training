@@ -1,1 +1,29 @@
-Login Comp
+<table>
+    <tr>
+    <td> Id </td>  
+    <td> User Id</td>
+    <td> Title </td>  
+    <td> Body </td> 
+    </tr>
+    <tr *ngFor="let post of posts; let i=index">
+        <td><a (click)="getPostById(post.id)">{{post?.id}}</a></td>
+        <td><a (click)="getPostByUserId(post.userId)">{{post?.userId}}</a></td>
+        <td>{{post?.title}}</td>
+        <td>{{post?.body}}</td>
+    </tr>
+</table>
+<button (click)="addPost()"> Add post </button>
+<div>
+    <p> 
+        {{post | json}}
+    </p>
+</div>
+
+<form action="">
+    <div class="form-group">
+        <label for=""></label>
+        <input type="text" class="form-control">
+    </div>
+
+    <button class="btn btn-primary"></button>
+</form>

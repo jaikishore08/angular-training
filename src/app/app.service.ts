@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Post } from './login/model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +24,23 @@ export class AppService {
       });
     })
     return observable;
+  }
+
+  getPosts():Observable<any> {
+    // const headers = new HttpHeaders().set("Content-type", "application/json; charset=UTF-8")
+    return this.http.get("https://jsonplaceholder.typicode.com/posts"); 
+  }
+
+  getPostById(id: number): Observable<any> {
+    return this.http.get("https://jsonplaceholder.typicode.com/posts/"+id);
+  }
+
+  getPostByUserId(userId: number): Observable<any> {
+    const params = new HttpParams().set("userId", ""+userId);
+    return this.http.get("https://jsonplaceholder.typicode.com/posts/",{params: params});
+  }
+
+  addPost(post: Post) {
+     return this.http.post("https://jsonplaceholder.typicode.com/posts/",post);
   }
 }
