@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TemplateDrivenFormDemoComponent implements OnInit {
 
+  emp : any = {
+    fName: "test"
+  };
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onChange(controlRefr, form) {
+    console.log(controlRefr);
+    console.log(form);
+  }
+
+  onSubmit(value) {
+    console.log(value)
   }
 
 }
